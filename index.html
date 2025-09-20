@@ -18,6 +18,8 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
+            /* Yatay kaydırmayı engellemek için */
         }
 
         canvas {
@@ -36,9 +38,6 @@
             background: white;
             color: black;
             min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
         }
 
         body.dark-mode {
@@ -56,7 +55,9 @@
             margin: 0;
             padding: 0;
             width: 100%;
+            /* İçeriğin genişliğini sınırladık */
             box-sizing: border-box;
+            /* Padding'in genişliğe dahil olmasını sağladık */
         }
 
         .artistname {
@@ -83,9 +84,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-sizing: border-box;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
         }
 
         .artwork {
@@ -95,15 +93,12 @@
             border-radius: 40px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            width: 100%;
+            width: 90%;
+            /* Mobil için genişliği yüzde cinsinden ayarladık */
             max-width: 500px;
             height: auto;
-            /* 3D dönüşüm için gerekli */
-            transform-style: preserve-3d;
-            perspective: 1000px;
         }
 
-        /* Hover animasyonlarını kaldırdık */
         .artwork::before {
             content: "";
             position: absolute;
@@ -126,7 +121,6 @@
             object-fit: contain;
             border-radius: 10px;
             display: block;
-            backface-visibility: hidden;
         }
 
         .icon-play {
@@ -143,9 +137,6 @@
             opacity: 0.85;
             transition: opacity 0.2s ease, transform 0.2s ease;
             z-index: 2;
-            backface-visibility: hidden;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .icon-play:hover {
@@ -153,25 +144,24 @@
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        .icon-play:active {
-            transform: translate(-50%, -50%) scale(0.95);
-        }
-
         .alttakiflex {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            /* Ortalamak için */
             align-items: center;
-            gap: 20px;
+            width: 100%;
         }
 
         .column {
-            padding: 30px;
+            padding: 20px;
+            /* Padding'i azalttık */
         }
 
         .ustlogo {
             height: calc(400px / 4);
-            margin-top: 50px;
-            padding: 0 40px;
+            margin: 0;
+            /* Margin ayarlarını kaldırdık */
+            padding: 40px;
         }
 
         input[type=checkbox] {
@@ -192,10 +182,6 @@
             margin: 10px 0;
             padding: 4px;
             transition: background 0.3s;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            min-height: 44px;
-            min-width: 60px;
         }
 
         label.switch .circle {
@@ -268,137 +254,29 @@
 
         @media (min-width: 800px) and (max-width: 1199px) {
             .artwork {
-                margin: 30px;
+                margin: 50px;
                 width: 400px;
                 height: auto;
-            }
-
-            .ustlogo {
-                height: calc(300px / 4);
-                margin-top: 30px;
-                padding: 0 30px;
             }
         }
 
         @media (max-width: 799px) {
             .artwork {
-                width: 280px;
-                margin: 20px;
-                max-width: 90vw;
+                width: 300px;
+                margin: 50px auto;
+                /* Merkezleme için */
             }
 
             .ustlogo {
-                width: 180px;
-                height: auto;
-                margin-top: 20px;
+                height: calc(400px / 4);
+                margin-top: 50px;
                 padding: 0 20px;
             }
 
-            .texts {
-                margin-top: 0;
-                padding: 0 20px;
-            }
-
-            .artistname {
-                font-size: 20px;
-            }
-
-            .songname {
-                font-size: 18px;
-            }
-
-            .content {
-                padding: 10px;
+            .alttakiflex {
+                justify-content: center;
             }
         }
-
-        @media (max-width: 480px) {
-            .artwork {
-                width: 250px;
-                margin: 15px;
-                max-width: 85vw;
-            }
-
-            .ustlogo {
-                width: 150px;
-                height: auto;
-                margin-top: 15px;
-                padding: 0 15px;
-            }
-
-            .texts {
-                margin-top: 0;
-                padding: 0 15px;
-            }
-
-            .artistname {
-                font-size: 18px;
-            }
-
-            .songname {
-                font-size: 16px;
-            }
-
-            .content {
-                padding: 5px;
-            }
-
-            .icon-play {
-                width: 25%;
-                height: 25%;
-            }
-
-            label.switch {
-                width: 50px;
-                height: 25px;
-            }
-
-            label.switch .circle {
-                width: 22px;
-                height: 22px;
-            }
-
-            input[type=checkbox]:checked+label.switch .circle {
-                transform: translateX(25px);
-            }
-
-            .alt {
-                padding: 10px 0;
-            }
-
-            .elselogofooter {
-                width: 50px;
-            }
-        }
-
-            .ustlogo {
-                width: 130px;
-                height: auto;
-                margin-top: 10px;
-                padding: 0 10px;
-            }
-
-            .texts {
-                margin-top: 0;
-                padding: 0 10px;
-            }
-
-            .artistname {
-                font-size: 16px;
-            }
-
-            .songname {
-                font-size: 14px;
-            }
-
-            .content {
-                padding: 5px;
-            }
-
-            .icon-play {
-                width: 20%;
-                height: 20%;
-            }
     </style>
 </head>
 
@@ -443,6 +321,7 @@
         const svg = document.querySelector('.icon-play');
         const svgPath = svg.querySelector('path');
         const artworkDiv = document.getElementById('artworkContainer');
+        const textsDiv = document.getElementById('textsContainer');
         const switchInput = document.getElementById('switch');
         const switchCircle = document.querySelector('.switch .circle');
         const switchIcon = document.getElementById('switchIcon');
@@ -460,31 +339,12 @@
                         canvas.style.display = 'none';
                     }
                 });
-
-                // Duraklatıldığında animasyonu durdur ve sıfırla
-                gsap.to(artworkDiv, {
-                    duration: 0.5,
-                    rotationY: 0,
-                    ease: "power2.out"
-                });
-
             } else {
                 svg.classList.add('play');
                 gsap.to(svgPath, { duration: 0.4, attr: { d: svg.getAttribute('data-pause') } });
                 artworkDiv.classList.add('active');
                 canvas.style.display = 'block';
                 gsap.fromTo(canvas, { opacity: 0, scale: 0.95 }, { duration: 0.5, opacity: 1, scale: 1, ease: "power2.out" });
-
-                // Tıklandığında 360 derece dönme animasyonu
-                gsap.to(artworkDiv, {
-                    duration: 1,
-                    rotationY: 360,
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        // Animasyon bittikten sonra 0'a döndürür ve bir sonraki tıklama için hazırlar
-                        gsap.set(artworkDiv, { rotationY: 0 });
-                    }
-                });
             }
         });
 
