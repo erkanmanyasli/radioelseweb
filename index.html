@@ -150,8 +150,9 @@
 
         .ustlogo {
             height: calc(400px / 4);
-            margin: 0;
-            padding: 40px;
+            margin-top: 50px;
+            /* Sadece mobil için üst boşluk ekledik */
+            padding: 0 40px;
         }
 
         input[type=checkbox] {
@@ -235,6 +236,12 @@
                 width: 500px;
                 height: auto;
             }
+
+            .ustlogo {
+                margin-top: 0;
+                /* Masaüstünde üst boşluğu sıfırladık */
+                padding: 40px;
+            }
         }
 
         @media (min-width: 800px) and (max-width: 1199px) {
@@ -249,10 +256,6 @@
             .artwork {
                 width: 300px;
                 margin: 50px;
-            }
-            .ustlogo{
-                width: 200px;
-                height: auto;
             }
         }
     </style>
