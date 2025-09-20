@@ -104,7 +104,30 @@
             z-index: 1;
         }
 
+        .artwork::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 25%;
+            height: 25%;
+            border: 4px solid white;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
         .artwork.active::before {
+            opacity: 0;
+        }
+
+        .artwork.active::after {
+            width: 0;
+            height: 0;
+            border-width: 0;
             opacity: 0;
         }
 
@@ -151,7 +174,6 @@
         .ustlogo {
             height: calc(400px / 4);
             margin-top: 50px;
-            /* Sadece mobil için üst boşluk ekledik */
             padding: 0 40px;
         }
 
@@ -239,7 +261,6 @@
 
             .ustlogo {
                 margin-top: 0;
-                /* Masaüstünde üst boşluğu sıfırladık */
                 padding: 40px;
             }
         }
@@ -250,7 +271,8 @@
                 width: 400px;
                 height: auto;
             }
-            .texts{
+
+            .texts {
                 margin: 0;
             }
         }
@@ -260,20 +282,23 @@
                 width: 200px;
                 margin: 30px;
             }
-            .ustlogo{
+
+            .ustlogo {
                 width: 150px;
                 height: auto;
             }
-            .texts{
+
+            .texts {
                 margin: 0;
             }
-                .artistname {
-        font-size: 20px;
-    }
-    .songname {
-        font-size: 20px;
-    }
-}
+
+            .artistname {
+                font-size: 20px;
+            }
+
+            .songname {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
