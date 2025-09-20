@@ -90,8 +90,12 @@
             width: 100%;
             max-width: 500px;
             height: auto;
+            /* 3D dönüşüm için gerekli */
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
+        /* Hover animasyonlarını kaldırdık */
         .artwork::before {
             content: "";
             position: absolute;
@@ -114,6 +118,7 @@
             object-fit: contain;
             border-radius: 10px;
             display: block;
+            backface-visibility: hidden;
         }
 
         .icon-play {
@@ -130,6 +135,7 @@
             opacity: 0.85;
             transition: opacity 0.2s ease, transform 0.2s ease;
             z-index: 2;
+            backface-visibility: hidden;
         }
 
         .icon-play:hover {
@@ -151,7 +157,6 @@
         .ustlogo {
             height: calc(400px / 4);
             margin-top: 50px;
-            /* Sadece mobil için üst boşluk ekledik */
             padding: 0 40px;
         }
 
@@ -239,7 +244,6 @@
 
             .ustlogo {
                 margin-top: 0;
-                /* Masaüstünde üst boşluğu sıfırladık */
                 padding: 40px;
             }
         }
@@ -257,11 +261,13 @@
                 width: 300px;
                 margin: 50px;
             }
-            .ustlogo{
+
+            .ustlogo {
                 width: 200px;
                 height: auto;
             }
-            .texts{
+
+            .texts {
                 margin-top: 0;
             }
         }
@@ -309,7 +315,6 @@
         const svg = document.querySelector('.icon-play');
         const svgPath = svg.querySelector('path');
         const artworkDiv = document.getElementById('artworkContainer');
-        const textsDiv = document.getElementById('textsContainer');
         const switchInput = document.getElementById('switch');
         const switchCircle = document.querySelector('.switch .circle');
         const switchIcon = document.getElementById('switchIcon');
@@ -327,12 +332,31 @@
                         canvas.style.display = 'none';
                     }
                 });
+
+                // Duraklatıldığında animasyonu durdur ve sıfırla
+                gsap.to(artworkDiv, {
+                    duration: 0.5,
+                    rotationY: 0,
+                    ease: "power2.out"
+                });
+
             } else {
                 svg.classList.add('play');
                 gsap.to(svgPath, { duration: 0.4, attr: { d: svg.getAttribute('data-pause') } });
                 artworkDiv.classList.add('active');
                 canvas.style.display = 'block';
                 gsap.fromTo(canvas, { opacity: 0, scale: 0.95 }, { duration: 0.5, opacity: 1, scale: 1, ease: "power2.out" });
+
+                // Tıklandığında 360 derece dönme animasyonu
+                gsap.to(artworkDiv, {
+                    duration: 1,
+                    rotationY: 360,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        // Animasyon bittikten sonra 0'a döndürür ve bir sonraki tıklama için hazırlar
+                        gsap.set(artworkDiv, { rotationY: 0 });
+                    }
+                });
             }
         });
 
