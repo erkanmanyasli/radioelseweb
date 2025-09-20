@@ -7,7 +7,8 @@
     <title>Radio Else</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
@@ -78,7 +79,10 @@
             border-radius: 40px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            height: 400px;
+            width: 100%;
+            max-width: 500px;
+            /* Maksimum genişlik */
+            height: auto;
         }
 
         .artwork::before {
@@ -98,13 +102,12 @@
         }
 
         .artwork img {
-            display: block;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            /* Kırpılmadan tam görünmesini sağlar */
             border-radius: 10px;
-            position: relative;
-            z-index: 0;
+            display: block;
         }
 
         .icon-play {
@@ -236,31 +239,31 @@
             color: white;
         }
 
-/* 1200px ve üzeri */
-@media (min-width: 1200px) {
-    .artwork {
-        margin: 50px;
-        width: 500px;
-        height: auto;
-    }
-}
+        /* 1200px ve üzeri */
+        @media (min-width: 1200px) {
+            .artwork {
+                margin: 50px;
+                width: 500px;
+                height: auto;
+            }
+        }
 
-/* 1200px - 800px arası */
-@media (min-width: 800px) and (max-width: 1199px) {
-    .artwork {
-        margin: 50px;
-        width: 400px;
-        height: auto;
-    }
-}
+        /* 1200px - 800px arası */
+        @media (min-width: 800px) and (max-width: 1199px) {
+            .artwork {
+                margin: 50px;
+                width: 400px;
+                height: auto;
+            }
+        }
 
-/* 800px - 400px arası ve daha küçük */
-@media (max-width: 799px) {
-    .artwork {
-        margin: 50px;
-        padding: ;
-    }
-}
+        /* 800px - 400px arası ve daha küçük */
+        @media (max-width: 799px) {
+            .artwork {
+                width: 300px;
+                margin: 50px;
+            }
+        }
     </style>
 </head>
 
@@ -323,7 +326,7 @@
 
     <script>
 
-        
+
         const svg = document.querySelector('.icon-play');
         const svgPath = svg.querySelector('path');
         const artworkDiv = document.querySelector('.artwork');
@@ -381,17 +384,21 @@
             nowPlayingBtn.classList.add('inactive');
 
             // texts ve heart kaybolsun
-            gsap.to(textsDiv, { duration: 0.5, opacity: 0, y: -20, onComplete: () => {
-                textsDiv.style.display = 'none';
-            }});
+            gsap.to(textsDiv, {
+                duration: 0.5, opacity: 0, y: -20, onComplete: () => {
+                    textsDiv.style.display = 'none';
+                }
+            });
 
             // artwork kaybolsun
-            gsap.to(artworkDiv, { duration: 0.5, x: -window.innerWidth, opacity: 0, onComplete: () => {
-                artworkDiv.style.display = 'none';
-                // placeholder göster
-                placeholderDiv.style.display = 'block';
-                gsap.fromTo(placeholderDiv, {opacity:0, y:20}, {duration:0.5, opacity:1, y:0});
-            }});
+            gsap.to(artworkDiv, {
+                duration: 0.5, x: -window.innerWidth, opacity: 0, onComplete: () => {
+                    artworkDiv.style.display = 'none';
+                    // placeholder göster
+                    placeholderDiv.style.display = 'block';
+                    gsap.fromTo(placeholderDiv, { opacity: 0, y: 20 }, { duration: 0.5, opacity: 1, y: 0 });
+                }
+            });
         });
 
         // NowPlaying click animation (geri)
@@ -401,18 +408,20 @@
 
             // texts ve artwork geri gelsin
             textsDiv.style.display = 'flex';
-            gsap.fromTo(textsDiv, {opacity:0, y:-20}, {duration:0.5, opacity:1, y:0});
+            gsap.fromTo(textsDiv, { opacity: 0, y: -20 }, { duration: 0.5, opacity: 1, y: 0 });
 
             artworkDiv.style.display = 'inline-block';
-            gsap.fromTo(artworkDiv, {x:-window.innerWidth, opacity:0}, {duration:0.5, x:0, opacity:1});
+            gsap.fromTo(artworkDiv, { x: -window.innerWidth, opacity: 0 }, { duration: 0.5, x: 0, opacity: 1 });
 
             // placeholder gizlensin
-            gsap.to(placeholderDiv, {duration:0.5, opacity:0, y:20, onComplete: () => {
-                placeholderDiv.style.display = 'none';
-            }});
+            gsap.to(placeholderDiv, {
+                duration: 0.5, opacity: 0, y: 20, onComplete: () => {
+                    placeholderDiv.style.display = 'none';
+                }
+            });
         });
 
-        
+
     </script>
 
 </body>
