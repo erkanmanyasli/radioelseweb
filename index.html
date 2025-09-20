@@ -36,6 +36,8 @@
             transition: background 0.3s, color 0.3s;
             background: white;
             color: black;
+            min-height: 100vh;
+            /* eklendi */
         }
 
         body.dark-mode {
@@ -45,7 +47,7 @@
 
         .content {
             display: flex;
-            flex: 1 0 auto;
+            flex: 1;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -85,7 +87,7 @@
             position: relative;
             display: inline-block;
             border-radius: 40px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             width: 100%;
             max-width: 500px;
@@ -157,7 +159,7 @@
         }
 
         .ustlogo {
-            height: calc(250px / 4);
+            height: calc(500px / 4);
             margin: 0;
             padding: 40px;
         }
@@ -215,6 +217,7 @@
             flex-shrink: 0;
             display: flex;
             justify-content: center;
+            margin: auto;
         }
 
         .alt img {
@@ -373,7 +376,7 @@
             isLiked = !isLiked;
         });
 
-       // Dark mode toggle
+        // Dark mode toggle
         switchInput.addEventListener('change', () => {
             document.body.classList.toggle('dark-mode');
             document.querySelector('.alt').classList.toggle('dark-mode');
@@ -432,7 +435,15 @@
             gsap.fromTo(textsDiv, { opacity: 0, y: -20 }, { duration: 0.5, opacity: 1, y: 0 });
 
             artworkDiv.style.display = 'inline-block';
-            gsap.fromTo(artworkDiv, { x: -window.innerWidth, opacity: 0 }, { duration: 0.5, x: 0, opacity: 1 });
+            gsap.fromTo(artworkDiv, { x: -window.innerWidth, opacity: 0 }, {
+                duration: 0.5,
+                x: 0,
+                opacity: 1,
+                onComplete: () => {
+                    // Tekrar opacity'yi 0.9 yap
+                    artworkDiv.style.opacity = 0.9;
+                }
+            });
 
             // placeholder gizlensin
             gsap.to(placeholderDiv, {
