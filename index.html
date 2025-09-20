@@ -7,10 +7,8 @@
     <title>Radio Else</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <!-- GSAP for SVG animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
@@ -20,6 +18,8 @@
             margin: 0;
             padding: 0;
         }
+
+
 
         body {
             display: flex;
@@ -75,7 +75,7 @@
         .artwork {
             position: relative;
             display: inline-block;
-            border-radius: 10px;
+            border-radius: 40px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             height: 400px;
@@ -134,14 +134,11 @@
             height: 20px;
         }
 
-        .elselogofooter {
-            opacity: 20%;
-        }
-
         .alttakiflex {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
+            gap: 20px;
         }
 
         .column {
@@ -151,7 +148,7 @@
         .ustlogo {
             height: calc(250px / 4);
             margin: 0;
-            padding: 20px;
+            padding: 40px;
         }
 
         input[type=checkbox] {
@@ -160,7 +157,6 @@
             visibility: hidden;
         }
 
-        /* Dark mode toggle */
         label.switch {
             cursor: pointer;
             width: 60px;
@@ -206,12 +202,65 @@
             background-color: black;
             color: white;
             flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .alt img {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        #nowPlayingBtn,
+        #profileBtn {
+            width: 25px;
+            height: auto;
+            transform: scale(2);
+            filter: invert(1);
+        }
+
+        .elselogofooter {
+            width: 60px;
+            height: auto;
+            opacity: 20%;
+            filter: invert(0);
+            pointer-events: none;
+        }
+
+        .alt img.inactive {
+            opacity: 0.3;
         }
 
         body.dark-mode .alt {
             background-color: black;
             color: white;
         }
+
+/* 1200px ve üzeri */
+@media (min-width: 1200px) {
+    .artwork {
+        margin: 50px;
+        width: 500px;
+        height: auto;
+    }
+}
+
+/* 1200px - 800px arası */
+@media (min-width: 800px) and (max-width: 1199px) {
+    .artwork {
+        margin: 50px;
+        width: 400px;
+        height: auto;
+    }
+}
+
+/* 800px - 400px arası ve daha küçük */
+@media (max-width: 799px) {
+    .artwork {
+        margin: 50px;
+        padding: ;
+    }
+}
     </style>
 </head>
 
@@ -237,6 +286,18 @@
             </p>
         </div>
 
+        <!-- Placeholder div for profile -->
+        <div id="profilePlaceholder" style="
+            display:none;
+            width: 300px;
+            padding: 50px;
+            height: 500px;
+            border: solid rgb(175, 175, 175) 1px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            margin: 20px 0;
+        "></div>
+
         <input type="checkbox" id="switch" />
         <label class="switch" for="switch">
             <div class="circle">
@@ -247,46 +308,56 @@
 
     <div class="alt">
         <div class="alttakiflex">
-            <div class="nowplaying column"><img src="./images/Now Playing_ON.png" alt="nowplaying" height="60"></div>
-            <div class="elselogo column"><img class="elselogofooter" src="./images/Else Logo_Sadece ELSE_White_PNG.png"
-                    alt="elselogofooter" height="30"></div>
-            <div class="profile column"><img src="./images/profile_OFF.png" alt="profile" height="60"></div>
+            <div class="nowplaying column">
+                <img id="nowPlayingBtn" src="./images/nowplaying-bootstrap.svg" alt="nowplaying">
+            </div>
+            <div class="elselogo column">
+                <img class="elselogofooter" src="./images/Else Logo_Sadece ELSE_White_PNG.png" alt="elselogofooter"
+                    height="30">
+            </div>
+            <div class="profile column">
+                <img id="profileBtn" class="inactive" src="./images/profile-on-bootstrap.svg" alt="profile">
+            </div>
         </div>
     </div>
 
     <script>
+
+        
         const svg = document.querySelector('.icon-play');
         const svgPath = svg.querySelector('path');
-        const artwork = document.querySelector('.artwork');
+        const artworkDiv = document.querySelector('.artwork');
+        const textsDiv = document.querySelector('.texts');
+        const placeholderDiv = document.getElementById('profilePlaceholder');
+        const heartIcon = document.querySelector('.heart');
+        const profileBtn = document.getElementById('profileBtn');
+        const nowPlayingBtn = document.getElementById('nowPlayingBtn');
+        const switchInput = document.getElementById('switch');
+        const switchCircle = document.querySelector('.switch .circle');
+        const switchIcon = document.getElementById('switchIcon');
+        const ustLogo = document.getElementById('ustLogo');
 
         // Play/Pause toggle
         svg.addEventListener('click', function () {
             if (svg.classList.contains('play')) {
                 svg.classList.remove('play');
                 gsap.to(svgPath, { duration: 0.4, attr: { d: svg.getAttribute('data-play') } });
-                artwork.classList.remove('active');
+                artworkDiv.classList.remove('active');
             } else {
                 svg.classList.add('play');
                 gsap.to(svgPath, { duration: 0.4, attr: { d: svg.getAttribute('data-pause') } });
-                artwork.classList.add('active');
+                artworkDiv.classList.add('active');
             }
         });
 
         // Heart toggle
-        const heartIcon = document.querySelector('.heart');
         let isLiked = false;
-
         heartIcon.addEventListener('click', () => {
             heartIcon.src = isLiked ? './images/heart.png' : './images/heart-fill.png';
             isLiked = !isLiked;
         });
 
         // Dark mode toggle
-        const switchInput = document.getElementById('switch');
-        const switchCircle = document.querySelector('.switch .circle');
-        const switchIcon = document.getElementById('switchIcon');
-        const ustLogo = document.getElementById('ustLogo');
-
         switchInput.addEventListener('change', () => {
             document.body.classList.toggle('dark-mode');
             document.querySelector('.alt').classList.toggle('dark-mode');
@@ -294,7 +365,7 @@
             if (switchInput.checked) {
                 switchCircle.style.background = 'black';
                 switchIcon.src = './images/suntoggle.svg';
-                switchIcon.style.filter = 'brightness(0) invert(1)'; // Beyaz görünmesi için
+                switchIcon.style.filter = 'brightness(0) invert(1)';
                 ustLogo.src = './images/Else Logo_White_PNG.png';
             } else {
                 switchCircle.style.background = 'white';
@@ -303,6 +374,45 @@
                 ustLogo.src = './images/Else Logo_Black_PNG.png';
             }
         });
+
+        // Profile click animation
+        profileBtn.addEventListener('click', () => {
+            profileBtn.classList.remove('inactive');
+            nowPlayingBtn.classList.add('inactive');
+
+            // texts ve heart kaybolsun
+            gsap.to(textsDiv, { duration: 0.5, opacity: 0, y: -20, onComplete: () => {
+                textsDiv.style.display = 'none';
+            }});
+
+            // artwork kaybolsun
+            gsap.to(artworkDiv, { duration: 0.5, x: -window.innerWidth, opacity: 0, onComplete: () => {
+                artworkDiv.style.display = 'none';
+                // placeholder göster
+                placeholderDiv.style.display = 'block';
+                gsap.fromTo(placeholderDiv, {opacity:0, y:20}, {duration:0.5, opacity:1, y:0});
+            }});
+        });
+
+        // NowPlaying click animation (geri)
+        nowPlayingBtn.addEventListener('click', () => {
+            nowPlayingBtn.classList.remove('inactive');
+            profileBtn.classList.add('inactive');
+
+            // texts ve artwork geri gelsin
+            textsDiv.style.display = 'flex';
+            gsap.fromTo(textsDiv, {opacity:0, y:-20}, {duration:0.5, opacity:1, y:0});
+
+            artworkDiv.style.display = 'inline-block';
+            gsap.fromTo(artworkDiv, {x:-window.innerWidth, opacity:0}, {duration:0.5, x:0, opacity:1});
+
+            // placeholder gizlensin
+            gsap.to(placeholderDiv, {duration:0.5, opacity:0, y:20, onComplete: () => {
+                placeholderDiv.style.display = 'none';
+            }});
+        });
+
+        
     </script>
 
 </body>
