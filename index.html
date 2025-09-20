@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Radio Else</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
@@ -28,7 +28,6 @@
             z-index: 0;
         }
 
-
         body {
             display: flex;
             flex-direction: column;
@@ -37,7 +36,6 @@
             background: white;
             color: black;
             min-height: 100vh;
-            /* eklendi */
         }
 
         body.dark-mode {
@@ -91,7 +89,6 @@
             overflow: hidden;
             width: 100%;
             max-width: 500px;
-            /* Maksimum genişlik */
             height: auto;
         }
 
@@ -115,7 +112,6 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            /* Kırpılmadan tam görünmesini sağlar */
             border-radius: 10px;
             display: block;
         }
@@ -139,12 +135,6 @@
         .icon-play:hover {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .heart {
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
         }
 
         .alttakiflex {
@@ -225,14 +215,6 @@
             transition: opacity 0.3s ease;
         }
 
-        #nowPlayingBtn,
-        #profileBtn {
-            width: 25px;
-            height: auto;
-            transform: scale(2);
-            filter: invert(1);
-        }
-
         .elselogofooter {
             width: 60px;
             height: auto;
@@ -241,16 +223,12 @@
             pointer-events: none;
         }
 
-        .alt img.inactive {
-            opacity: 0.3;
-        }
-
         body.dark-mode .alt {
             background-color: black;
             color: white;
         }
 
-        /* 1200px ve üzeri */
+        /* RESPONSIVE */
         @media (min-width: 1200px) {
             .artwork {
                 margin: 50px;
@@ -259,7 +237,6 @@
             }
         }
 
-        /* 1200px - 800px arası */
         @media (min-width: 800px) and (max-width: 1199px) {
             .artwork {
                 margin: 50px;
@@ -268,7 +245,6 @@
             }
         }
 
-        /* 800px - 400px arası ve daha küçük */
         @media (max-width: 799px) {
             .artwork {
                 width: 300px;
@@ -280,11 +256,12 @@
 
 <body>
     <canvas id="waves"></canvas>
-    <div class="content">
-        <img class="ustlogo" id="ustLogo" src="./images/Else Logo_Black_PNG.png" alt="radioelselogo">
 
-        <div class="artwork">
-            <img src="./images/Artwork.jpg" alt="artwork">
+    <div class="content">
+        <img class="ustlogo" id="ustLogo" src="./images/Else Logo_Black_PNG.png" alt="radioelselogo" />
+
+        <div class="artwork" id="artworkContainer">
+            <img src="./images/Artwork.jpg" alt="artwork" />
             <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"
                 data-play="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"
                 data-pause="M 12,26 16.33,26 16.33,10 12,10 z M 20.66,26 25,26 25,10 20.66,10 z">
@@ -292,50 +269,33 @@
             </svg>
         </div>
 
-        <div class="texts">
+        <div class="texts" id="textsContainer">
             <p class="artistname">Agustin Pietrocola</p>
-            <p class="songname">
-                Sorcerer
-                <img class="heart" src="./images/heart.png" alt="heart icon">
-            </p>
+            <p class="songname">Sorcerer</p>
         </div>
-
-
 
         <input type="checkbox" id="switch" />
         <label class="switch" for="switch">
             <div class="circle">
-                <img id="switchIcon" src="./images/moontoggle.svg" alt="toggle icon">
+                <img id="switchIcon" src="./images/moontoggle.svg" alt="toggle icon" />
             </div>
         </label>
     </div>
 
     <div class="alt">
         <div class="alttakiflex">
-            <div class="nowplaying column">
-                <img id="nowPlayingBtn" src="./images/nowplaying-bootstrap.svg" alt="nowplaying">
-            </div>
             <div class="elselogo column">
                 <img class="elselogofooter" src="./images/Else Logo_Sadece ELSE_White_PNG.png" alt="elselogofooter"
-                    height="30">
-            </div>
-            <div class="profile column">
-                <img id="profileBtn" class="inactive" src="./images/profile-on-bootstrap.svg" alt="profile">
+                    height="30" />
             </div>
         </div>
     </div>
 
     <script>
-
-
         const svg = document.querySelector('.icon-play');
         const svgPath = svg.querySelector('path');
-        const artworkDiv = document.querySelector('.artwork');
-        const textsDiv = document.querySelector('.texts');
-        const placeholderDiv = document.getElementById('profilePlaceholder');
-        const heartIcon = document.querySelector('.heart');
-        const profileBtn = document.getElementById('profileBtn');
-        const nowPlayingBtn = document.getElementById('nowPlayingBtn');
+        const artworkDiv = document.getElementById('artworkContainer');
+        const textsDiv = document.getElementById('textsContainer');
         const switchInput = document.getElementById('switch');
         const switchCircle = document.querySelector('.switch .circle');
         const switchIcon = document.getElementById('switchIcon');
@@ -348,8 +308,6 @@
                 svg.classList.remove('play');
                 gsap.to(svgPath, { duration: 0.4, attr: { d: svg.getAttribute('data-play') } });
                 artworkDiv.classList.remove('active');
-
-                // Canvas'ı ease ile gizle
                 gsap.to(canvas, {
                     duration: 0.5, opacity: 0, scale: 0.95, ease: "power2.in", onComplete: () => {
                         canvas.style.display = 'none';
@@ -359,28 +317,15 @@
                 svg.classList.add('play');
                 gsap.to(svgPath, { duration: 0.4, attr: { d: svg.getAttribute('data-pause') } });
                 artworkDiv.classList.add('active');
-
-                // Canvas'ı göstermek ve ease ile animasyon
                 canvas.style.display = 'block';
-                gsap.fromTo(canvas,
-                    { opacity: 0, scale: 0.95 },
-                    { duration: 0.5, opacity: 1, scale: 1, ease: "power2.out" }
-                );
+                gsap.fromTo(canvas, { opacity: 0, scale: 0.95 }, { duration: 0.5, opacity: 1, scale: 1, ease: "power2.out" });
             }
-        });
-
-        // Heart toggle
-        let isLiked = false;
-        heartIcon.addEventListener('click', () => {
-            heartIcon.src = isLiked ? './images/heart.png' : './images/heart-fill.png';
-            isLiked = !isLiked;
         });
 
         // Dark mode toggle
         switchInput.addEventListener('change', () => {
             document.body.classList.toggle('dark-mode');
             document.querySelector('.alt').classList.toggle('dark-mode');
-
             const canvas = document.getElementById('waves');
 
             if (switchInput.checked) {
@@ -388,75 +333,20 @@
                 switchIcon.src = './images/suntoggle.svg';
                 switchIcon.style.filter = 'brightness(0) invert(1)';
                 ustLogo.src = './images/Else Logo_White_PNG.png';
-
-                // Canvas invert
                 canvas.style.filter = 'invert(1)';
             } else {
                 switchCircle.style.background = 'white';
                 switchIcon.src = './images/moontoggle.svg';
                 switchIcon.style.filter = 'none';
                 ustLogo.src = './images/Else Logo_Black_PNG.png';
-
-                // Canvas normal
                 canvas.style.filter = 'invert(0)';
             }
         });
-
-        // Profile click animation
-        profileBtn.addEventListener('click', () => {
-            profileBtn.classList.remove('inactive');
-            nowPlayingBtn.classList.add('inactive');
-
-            // texts ve heart kaybolsun
-            gsap.to(textsDiv, {
-                duration: 0.5, opacity: 0, y: -20, onComplete: () => {
-                    textsDiv.style.display = 'none';
-                }
-            });
-
-            // artwork kaybolsun
-            gsap.to(artworkDiv, {
-                duration: 0.5, x: -window.innerWidth, opacity: 0, onComplete: () => {
-                    artworkDiv.style.display = 'none';
-                    // placeholder göster
-                    placeholderDiv.style.display = 'block';
-                    gsap.fromTo(placeholderDiv, { opacity: 0, y: 20 }, { duration: 0.5, opacity: 1, y: 0 });
-                }
-            });
-        });
-
-        // NowPlaying click animation (geri)
-        nowPlayingBtn.addEventListener('click', () => {
-            nowPlayingBtn.classList.remove('inactive');
-            profileBtn.classList.add('inactive');
-
-            // texts ve artwork geri gelsin
-            textsDiv.style.display = 'flex';
-            gsap.fromTo(textsDiv, { opacity: 0, y: -20 }, { duration: 0.5, opacity: 1, y: 0 });
-
-            artworkDiv.style.display = 'inline-block';
-            gsap.fromTo(artworkDiv, { x: -window.innerWidth, opacity: 0 }, {
-                duration: 0.5,
-                x: 0,
-                opacity: 1,
-                onComplete: () => {
-                    // Tekrar opacity'yi 0.9 yap
-                    artworkDiv.style.opacity = 0.9;
-                }
-            });
-
-            // placeholder gizlensin
-            gsap.to(placeholderDiv, {
-                duration: 0.5, opacity: 0, y: 20, onComplete: () => {
-                    placeholderDiv.style.display = 'none';
-                }
-            });
-        });
-
-
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // SineWaveGenerator (tam)
         function SineWaveGenerator(options) {
             $.extend(this, options || {});
             if (!this.el) { throw "No Canvas Selected"; }
@@ -549,6 +439,7 @@
             window.requestAnimationFrame(this.loop.bind(this));
         }
 
+        // instantiate
         new SineWaveGenerator({
             el: document.getElementById('waves'),
             speed: 8,
