@@ -36,6 +36,9 @@
             background: white;
             color: black;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
         body.dark-mode {
@@ -52,6 +55,8 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .artistname {
@@ -78,6 +83,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .artwork {
@@ -136,11 +144,17 @@
             transition: opacity 0.2s ease, transform 0.2s ease;
             z-index: 2;
             backface-visibility: hidden;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .icon-play:hover {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .icon-play:active {
+            transform: translate(-50%, -50%) scale(0.95);
         }
 
         .alttakiflex {
@@ -178,6 +192,10 @@
             margin: 10px 0;
             padding: 4px;
             transition: background 0.3s;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 44px;
+            min-width: 60px;
         }
 
         label.switch .circle {
@@ -250,27 +268,137 @@
 
         @media (min-width: 800px) and (max-width: 1199px) {
             .artwork {
-                margin: 50px;
+                margin: 30px;
                 width: 400px;
                 height: auto;
+            }
+
+            .ustlogo {
+                height: calc(300px / 4);
+                margin-top: 30px;
+                padding: 0 30px;
             }
         }
 
         @media (max-width: 799px) {
             .artwork {
-                width: 300px;
-                margin: 50px;
+                width: 280px;
+                margin: 20px;
+                max-width: 90vw;
             }
 
             .ustlogo {
-                width: 200px;
+                width: 180px;
                 height: auto;
+                margin-top: 20px;
+                padding: 0 20px;
             }
 
             .texts {
                 margin-top: 0;
+                padding: 0 20px;
+            }
+
+            .artistname {
+                font-size: 20px;
+            }
+
+            .songname {
+                font-size: 18px;
+            }
+
+            .content {
+                padding: 10px;
             }
         }
+
+        @media (max-width: 480px) {
+            .artwork {
+                width: 250px;
+                margin: 15px;
+                max-width: 85vw;
+            }
+
+            .ustlogo {
+                width: 150px;
+                height: auto;
+                margin-top: 15px;
+                padding: 0 15px;
+            }
+
+            .texts {
+                margin-top: 0;
+                padding: 0 15px;
+            }
+
+            .artistname {
+                font-size: 18px;
+            }
+
+            .songname {
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 5px;
+            }
+
+            .icon-play {
+                width: 25%;
+                height: 25%;
+            }
+
+            label.switch {
+                width: 50px;
+                height: 25px;
+            }
+
+            label.switch .circle {
+                width: 22px;
+                height: 22px;
+            }
+
+            input[type=checkbox]:checked+label.switch .circle {
+                transform: translateX(25px);
+            }
+
+            .alt {
+                padding: 10px 0;
+            }
+
+            .elselogofooter {
+                width: 50px;
+            }
+        }
+
+            .ustlogo {
+                width: 130px;
+                height: auto;
+                margin-top: 10px;
+                padding: 0 10px;
+            }
+
+            .texts {
+                margin-top: 0;
+                padding: 0 10px;
+            }
+
+            .artistname {
+                font-size: 16px;
+            }
+
+            .songname {
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 5px;
+            }
+
+            .icon-play {
+                width: 20%;
+                height: 20%;
+            }
     </style>
 </head>
 
